@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import DeleteRecipeButton from "@/components/DeleteRecipeButton";
+import AddToShoppingListButton from "@/components/AddToShoppingListButton";
 import type { Recipe } from "@/types/recipe";
 
 export default function RecipeDetailPage() {
@@ -83,7 +84,10 @@ export default function RecipeDetailPage() {
 
       {recipe.ingredients.length > 0 && (
         <section className="rounded-xl bg-white border border-gray-200 p-4">
-          <h2 className="font-semibold text-gray-800 mb-3">材料</h2>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-semibold text-gray-800">材料</h2>
+            <AddToShoppingListButton ingredients={recipe.ingredients} />
+          </div>
           <ul className="space-y-1.5">
             {recipe.ingredients.map((ing, i) => (
               <li
