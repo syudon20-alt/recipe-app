@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Ingredient, RecipeInput } from "@/types/recipe";
+import StarRating from "@/components/StarRating";
 
 type Props = {
   initialValue?: RecipeInput;
@@ -43,6 +44,12 @@ export default function RecipeForm({
       : [""]
   );
   const [memo, setMemo] = useState(initialValue?.memo ?? "");
+  const [delegateSteps, setDelegateSteps] = useState(
+    initialValue?.delegate_steps ?? ""
+  );
+  const [rating, setRating] = useState<number | null>(
+    initialValue?.rating ?? null
+  );
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -99,6 +106,8 @@ export default function RecipeForm({
         ingredients: cleanedIngredients,
         steps: cleanedSteps,
         memo: memo.trim() || null,
+        delegate_steps: delegateSteps.trim() || null,
+        rating,
       });
     } catch (err) {
       setError("保存に失敗しました: " + extractErrorMessage(err));
@@ -121,6 +130,13 @@ export default function RecipeForm({
           className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-400"
           placeholder="例: 肉じゃが"
         />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          評価
+        </label>
+        <StarRating value={rating} onChange={setRating} />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -257,6 +273,19 @@ export default function RecipeForm({
           rows={3}
           className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-400"
           placeholder="コツやアレンジなど自由にメモできます"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          嫁さん用作業工程
+        </label>
+        <textarea
+          value={delegateSteps}
+          onChange={(e) => setDelegateSteps(e.target.value)}
+          rows={4}
+          className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-400"
+          placeholder="事前準備を済ませた上で、当日誰かに任せる場合の簡易手順など"
         />
       </div>
 

@@ -235,6 +235,14 @@ export default function HomePage() {
             <h2 className="font-semibold text-gray-800 truncate">
               {recipe.title}
             </h2>
+            {recipe.rating != null && (
+              <div className="mt-0.5 text-xs text-yellow-400">
+                {"★".repeat(recipe.rating)}
+                <span className="text-gray-300">
+                  {"★".repeat(5 - recipe.rating)}
+                </span>
+              </div>
+            )}
             <div className="mt-2 flex flex-wrap gap-2 text-xs text-gray-500">
               {recipe.category && (
                 <span className="rounded-full bg-orange-100 text-orange-700 px-2 py-0.5">

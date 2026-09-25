@@ -80,6 +80,8 @@ export default function EditRecipePage() {
           ingredients: recipe.ingredients,
           steps: recipe.steps,
           memo: recipe.memo,
+          delegate_steps: recipe.delegate_steps,
+          rating: recipe.rating,
         }}
         onSubmit={handleUpdate}
       />

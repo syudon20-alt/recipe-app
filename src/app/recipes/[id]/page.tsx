@@ -70,6 +70,14 @@ export default function RecipeDetailPage() {
             )}
             {recipe.servings && <span>👥 {recipe.servings}</span>}
           </div>
+          {recipe.rating != null && (
+            <div className="mt-2 text-yellow-400" aria-label={`評価${recipe.rating}`}>
+              {"★".repeat(recipe.rating)}
+              <span className="text-gray-300">
+                {"★".repeat(5 - recipe.rating)}
+              </span>
+            </div>
+          )}
         </div>
         <div className="flex gap-2 shrink-0">
           <Link
@@ -122,6 +130,15 @@ export default function RecipeDetailPage() {
         <section className="rounded-xl bg-white border border-gray-200 p-4">
           <h2 className="font-semibold text-gray-800 mb-2">メモ</h2>
           <p className="text-gray-700 whitespace-pre-wrap">{recipe.memo}</p>
+        </section>
+      )}
+
+      {recipe.delegate_steps && (
+        <section className="rounded-xl bg-white border border-gray-200 p-4">
+          <h2 className="font-semibold text-gray-800 mb-2">嫁さん用作業工程</h2>
+          <p className="text-gray-700 whitespace-pre-wrap">
+            {recipe.delegate_steps}
+          </p>
         </section>
       )}
 
